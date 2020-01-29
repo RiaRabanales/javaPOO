@@ -25,7 +25,7 @@ public class Cuenta {
         this.tipoInteres = c1.tipoInteres;
         this.saldoCuenta = c1.saldoCuenta;
     }
-
+    
     //Setters y getters:
     public String getNombreCliente() {
         return nombreCliente;
@@ -96,6 +96,13 @@ public class Cuenta {
         } else {
             System.out.println("No hay saldo suficiente.");
         }
+    }
+    
+    public void imprimirCuenta() {
+        System.out.println("Datos solicitados para la cuenta " + this.getNumeroCuenta() + ":");
+        System.out.println("Nombre cliente: " + this.getNombreCliente());
+        System.out.println("Tipo de interés: " + this.getTipoInteres());
+        System.out.println("Saldo cuenta: " + this.getSaldoCuenta());
     }
     
 }
