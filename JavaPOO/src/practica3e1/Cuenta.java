@@ -1,22 +1,24 @@
-package ejercicio3;
+package practica3e1;
 
 public class Cuenta {
     
     //Atributos:
-    String nombreCliente;
-    String numeroCuenta;
-    double tipoInteres;
-    double saldoCuenta;
+    private String nombreCliente;
+    private String numeroCuenta;
+    private double tipoInteres;
+    private double saldoCuenta;
+    private String contrasena;
 
     //Constructores:
     public Cuenta() {
     }
     
-    public Cuenta(String nombreCliente, String numeroCuenta, double tipoInteres, double saldoCuenta) {
+    public Cuenta(String nombreCliente, String numeroCuenta, double tipoInteres, double saldoCuenta, String contrasena) {
         this.nombreCliente = nombreCliente;
         this.numeroCuenta = numeroCuenta;
         this.tipoInteres = tipoInteres;
         this.saldoCuenta = saldoCuenta;
+        this.contrasena = contrasena;
     }
 
     public Cuenta(Cuenta c1) {
@@ -24,6 +26,7 @@ public class Cuenta {
         this.numeroCuenta = c1.numeroCuenta;
         this.tipoInteres = c1.tipoInteres;
         this.saldoCuenta = c1.saldoCuenta;
+        this.contrasena = c1.contrasena;
     }
     
     //Setters y getters:
@@ -57,6 +60,14 @@ public class Cuenta {
 
     public void setSaldoCuenta(double saldoCuenta) {
         this.saldoCuenta = saldoCuenta;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
     
     //Métodos:    
@@ -103,6 +114,7 @@ public class Cuenta {
         System.out.println("Nombre cliente: " + this.getNombreCliente());
         System.out.println("Tipo de interés: " + this.getTipoInteres());
         System.out.println("Saldo cuenta: " + this.getSaldoCuenta());
+        System.out.println("Por motivos legales no se puede facilitar la contraseña por esta vía.");
     }
     
 }
