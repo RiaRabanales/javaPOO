@@ -11,13 +11,14 @@ public class Taxi extends Vehiculo {
 
     public Taxi(int numLicencia, boolean ocupado, int numTaxistas, int id, String matricula, String modelo, int potencia) {
         super(id, matricula, modelo, potencia);
-        this.numLicencia = numLicencia;
+        this.setNumLicencia();
         this.ocupado = ocupado;
         this.numTaxistas = numTaxistas;
     }
     
     public Taxi(Taxi t1) {
         super(t1);
+        //esta copia me implicaría que el número de licencia no es único
         this.numLicencia = t1.numLicencia;
         this.ocupado = t1.ocupado;
         this.numTaxistas = t1.numTaxistas;
@@ -27,8 +28,9 @@ public class Taxi extends Vehiculo {
         return numLicencia;
     }
 
-    public void setNumLicencia(int numLicencia) {
-        this.numLicencia = numLicencia;
+    public void setNumLicencia() {
+        MenuPrincipal.contadorLicencia += 1;
+        this.numLicencia = MenuPrincipal.contadorLicencia;
     }
 
     public boolean isOcupado() {
@@ -51,8 +53,7 @@ public class Taxi extends Vehiculo {
     public void altaVehiculo() {
         super.altaVehiculo();
         this.setOcupado(false);
-        System.out.println("  -número de licencia:");
-        this.setNumLicencia(Integer.parseInt(MenuPrincipal.lector.nextLine()));
+        this.setNumLicencia();
         System.out.println("  -número de taxistas con esta licencia:");
         this.setNumTaxistas(Integer.parseInt(MenuPrincipal.lector.nextLine()));
     }
@@ -67,6 +68,13 @@ public class Taxi extends Vehiculo {
         } else {
             System.out.println("  -estado: libre");
         }
-        
+    }
+    
+    public void marcarOcupado() {
+        this.setOcupado(true);
+    }
+    
+    public void marcarDesocupado() {
+        this.setOcupado(false);
     }
 }

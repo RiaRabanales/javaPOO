@@ -14,8 +14,8 @@ public class Vehiculo {
 
     public Vehiculo(int id, String matricula, String modelo, int potencia) {
         this.id = id;
-        this.matricula = matricula;
-        this.modelo = modelo;
+        this.setMatricula(matricula);
+        this.setModelo(modelo);
         this.potencia = potencia;
     }
     
@@ -40,7 +40,7 @@ public class Vehiculo {
     }
 
     public void setMatricula(String matricula) {
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
     }
 
     public String getModelo() {
@@ -48,7 +48,7 @@ public class Vehiculo {
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo;
+        this.modelo = modelo.substring(0,1).toUpperCase() + modelo.substring(1).toLowerCase();
     }
 
     public int getPotencia() {
@@ -66,8 +66,11 @@ public class Vehiculo {
         this.setMatricula(MenuPrincipal.lector.nextLine());
         System.out.println("  -modelo:");
         this.setModelo(MenuPrincipal.lector.nextLine());
-        System.out.println("  -potencia:");
-        this.setPotencia(Integer.parseInt(MenuPrincipal.lector.nextLine()));
+        //no quiero hacer la comprobación de la potencia por setter.
+        do {
+            System.out.println("  -potencia:");
+            this.setPotencia(Integer.parseInt(MenuPrincipal.lector.nextLine()));
+        } while (this.getPotencia() < 0);
     }
     
     public void mostrarVehiculo() {

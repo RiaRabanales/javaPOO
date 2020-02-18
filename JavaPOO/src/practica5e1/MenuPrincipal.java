@@ -58,7 +58,6 @@ public class MenuPrincipal {
             default:
                 System.out.println("Empleado incorrecto.");
         }
-
     }
 
     public static void procesoMostrar(ArrayList<Empleado> listaEmpleado) {

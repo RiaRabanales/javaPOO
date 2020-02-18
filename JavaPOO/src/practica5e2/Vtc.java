@@ -46,5 +46,25 @@ public class Vtc extends Vehiculo {
         this.ciudad = ciudad;
     }
     
+    @Override
+    public void altaVehiculo() {
+        super.altaVehiculo();
+        do {System.out.println("  -horas máximas trabajadas:");
+            this.setMaxHoras(Integer.parseInt(MenuPrincipal.lector.nextLine()));
+        } while (this.getMaxHoras() <= 24);
+        do {
+            System.out.println("  -radio de acción en km:");
+            this.setKmRadio(Integer.parseInt(MenuPrincipal.lector.nextLine()));
+        } while (this.getKmRadio() <= 50);
+        System.out.println("  -ciudad:");
+        this.setCiudad(MenuPrincipal.lector.nextLine());
+    }
     
+    @Override
+    public void mostrarVehiculo() {
+        super.mostrarVehiculo();
+        System.out.println("  -horas máximas trabajadas: " + this.getMaxHoras());
+        System.out.println("  -radio de acción en km: " + this.getKmRadio());
+        System.out.println("  -ciudad: " + this.getCiudad());
+    }
 }

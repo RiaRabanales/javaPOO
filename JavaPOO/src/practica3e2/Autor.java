@@ -11,6 +11,7 @@ public class Autor {
     //por ahora true = hombre, false = mujer
     private int anoNacimiento;
 
+    //Constructores:
     public Autor() {
     }
 
@@ -53,6 +54,7 @@ public class Autor {
         this.anoNacimiento = anoNacimiento;
     }
 
+    //Métodos:
     void introducirAutor() {
         Scanner lector = new Scanner(System.in);
         System.out.println("Nombre de autor:");

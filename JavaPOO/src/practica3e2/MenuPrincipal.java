@@ -1,3 +1,4 @@
+//Idea: me creo una biblioteca personal con libros y autores.
 package practica3e2;
 
 import java.util.ArrayList;

@@ -10,6 +10,7 @@ public class Libro {
     private int numPaginas;
     private String editorial;
 
+    //Constructores:
     public Libro() {
     }
 
@@ -61,6 +62,7 @@ public class Libro {
         this.editorial = editorial;
     }
     
+    //Métodos:
     public void introducirLibro(Autor autor) {
         Scanner lector = new Scanner(System.in);
         System.out.println("Título: ");

@@ -71,6 +71,7 @@ public class Cuenta {
     }
     
     //Métodos:    
+    //Nota: la creación de cuenta la he querido hacer por el menú principal y constructor
     public boolean ingresar (double ingreso) {
         if (ingreso >= 0) {
             /* lo de abajo es igual a:

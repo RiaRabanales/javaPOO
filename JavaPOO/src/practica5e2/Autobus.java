@@ -35,5 +35,21 @@ public class Autobus extends Vehiculo {
         this.numParadas = numParadas;
     }
     
+    @Override
+    public void altaVehiculo() {
+        super.altaVehiculo();
+        System.out.println("  -número de plazas:");
+        this.setNumPlazas(Integer.parseInt(MenuPrincipal.lector.nextLine()));
+        do {
+            System.out.println("  -número de paradas:");
+            this.setNumParadas(Integer.parseInt(MenuPrincipal.lector.nextLine()));
+        } while (this.getNumParadas() >= 3 && this.getNumParadas() <= 20);
+    }
     
+    @Override
+    public void mostrarVehiculo() {
+        super.mostrarVehiculo();
+        System.out.println("  -número de licencia: " + this.getNumPlazas());
+        System.out.println("  -número de taxistas con esta licencia: " + this.getNumParadas());
+    }
 }
