@@ -6,13 +6,12 @@ import java.util.Scanner;
 public class MenuPrincipal {
     //Variables que necesito en todas las clases
     public static Scanner lector = new Scanner(System.in);
-    public static int contadorLicencia;
 
     public static void main(String[] args) {
         ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
 
         boolean salir = false;
-        while (salir == false) {
+        while (!salir) {
             System.out.println("______________________________");
             System.out.println("Menú principal:");
             System.out.println("  1- Alta vehiculo");
@@ -20,6 +19,7 @@ public class MenuPrincipal {
             System.out.println("  3- Solicitar taxi");
             System.out.println("  4- Liberar taxi");
             System.out.println("  5- Mostrar vehiculos");
+            System.out.println("  6- Contar vehículos en la aplicación");
             System.out.println("  0- Salir");
             int opcionPrincipal = Integer.parseInt(lector.nextLine().trim());
             System.out.println("______________________________");
@@ -40,6 +40,9 @@ public class MenuPrincipal {
                     break;
                 case 5:
                     mostrarListaVehiculos(listaVehiculos);
+                    break;
+                case 6:
+                    mostrarNumVehiculos();
                     break;
                 case 0:
                     salir = true;
@@ -74,7 +77,7 @@ public class MenuPrincipal {
                 listaVehiculos.add(vtc1);
                 break;
             default:
-                System.out.println("Empleado incorrecto.");
+                System.out.println("Opción incorrecta.");
         }
     }
     
@@ -97,7 +100,7 @@ public class MenuPrincipal {
     
     public static void procesoBusqueda(ArrayList<Vehiculo> listaVehiculos) {
         System.out.println("Elección de búsqueda:");
-        System.out.println("  -1: por id");
+        System.out.println("  -1: por ID");
         System.out.println("  -2: por matricula");
         String opcionBusqueda = lector.nextLine();
         Vehiculo vehiculoEncontrado = new Vehiculo();
@@ -137,30 +140,41 @@ public class MenuPrincipal {
         return null;
     }
     
+    //Recorro la lista para buscar taxis, variable para saber si lo encuentro
     public static void solicitarTaxi(ArrayList<Vehiculo> listaVehiculos) {
+        boolean taxiEncontrado = false;
         for (int i = 0; i < listaVehiculos.size(); i++) {
             if (listaVehiculos.get(i) instanceof Taxi) {
                 //esto lo podía hacer con un && en vez de anidar condiciones
                 if (((Taxi)listaVehiculos.get(i)).isOcupado() == false) {
                     ((Taxi)listaVehiculos.get(i)).setOcupado(true);
-                    System.out.println("Se ha reservado el taxi con  id " + 
+                    taxiEncontrado = true;
+                    System.out.println("Se ha reservado el taxi con  ID " + 
                             listaVehiculos.get(i).getId() + " y matrícula " +
                             listaVehiculos.get(i).getMatricula());
                 }
             }
         }
+        if (!taxiEncontrado) {
+            System.out.println("En estos momentos no hay taxis disponibles.");
+        }
     }
     
     public static void cancelarTaxi(ArrayList<Vehiculo> listaVehiculos) {
         System.out.println("Datos del taxi.");
-        Taxi miTaxi = (Taxi)buscarVehiculoId(listaVehiculos);
-        if (miTaxi != null && miTaxi.isOcupado() == true) {
-            miTaxi.setOcupado(false);
-            //pero esto no me lo cambia en la lista! replantear
-            System.out.println("Se ha cancelado la reserva del taxi con  id " + 
-                miTaxi.getId() + " y matrícula " + miTaxi.getMatricula());
-        } else {
-            System.out.println("Operación imposible.");
+        int indice = listaVehiculos.indexOf(buscarVehiculoId(listaVehiculos));
+        //cuidado: cuando veamos try-catch volver para arreglar casos de retorno null
+        //NullPointerException supongo?
+        if (((Taxi)(listaVehiculos.get(indice))).isOcupado()) {
+            ((Taxi)(listaVehiculos.get(indice))).setOcupado(false);
+            System.out.println("Se ha cancelado la reserva del taxi con  ID " + 
+                    ((Taxi)(listaVehiculos.get(indice))).getId() + " y matrícula " + 
+                    ((Taxi)(listaVehiculos.get(indice))).getMatricula());
         }
     }
+    
+    public static void mostrarNumVehiculos() {
+        System.out.println("En esta aplicacion se guardan " + Vehiculo.getNumVehiculos() + " vehículos.");
+    }
+    
 }

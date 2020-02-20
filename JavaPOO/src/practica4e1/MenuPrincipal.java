@@ -15,7 +15,7 @@ public class MenuPrincipal {
 
         boolean salir = false;
 
-        while (salir == false) {
+        while (!salir) {
             System.out.println("=========================");
             System.out.println("       = MENU =");
             System.out.println("=========================");

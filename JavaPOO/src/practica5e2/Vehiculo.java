@@ -1,9 +1,9 @@
 package practica5e2;
 
 public class Vehiculo {
-    //campo para controlar el num. de instancias totales
+
     private static int numVehiculos = 0;
-    
+    //campo para controlar el num. de instancias totales    
     private int id;
     private String matricula;
     private String modelo;
@@ -18,7 +18,7 @@ public class Vehiculo {
         this.setModelo(modelo);
         this.potencia = potencia;
     }
-    
+
     public Vehiculo(Vehiculo v1) {
         this.id = v1.id;
         this.matricula = v1.matricula;
@@ -30,7 +30,7 @@ public class Vehiculo {
         return id;
     }
 
-    public void setId(int numVehiculos) {
+    public void setId() {
         numVehiculos += 1;
         this.id = numVehiculos;
     }
@@ -48,7 +48,7 @@ public class Vehiculo {
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo.substring(0,1).toUpperCase() + modelo.substring(1).toLowerCase();
+        this.modelo = modelo.substring(0, 1).toUpperCase() + modelo.substring(1).toLowerCase();
     }
 
     public int getPotencia() {
@@ -56,11 +56,18 @@ public class Vehiculo {
     }
 
     public void setPotencia(int potencia) {
-        this.potencia = potencia;
+        if (potencia >= 20) {
+            this.potencia = potencia;
+        }
     }
-    
+
+    public static int getNumVehiculos() {
+        return numVehiculos;
+    }
+
+    //Métodos propios:
     public void altaVehiculo() {
-        this.setId(numVehiculos);
+        this.setId();
         System.out.println("Introducir:");
         System.out.println("  -matrícula:");
         this.setMatricula(MenuPrincipal.lector.nextLine());
@@ -72,9 +79,9 @@ public class Vehiculo {
             this.setPotencia(Integer.parseInt(MenuPrincipal.lector.nextLine()));
         } while (this.getPotencia() < 0);
     }
-    
+
     public void mostrarVehiculo() {
-        System.out.println("Vehículo con id " + this.getId());
+        System.out.println("Vehículo con ID " + this.getId() + "-");
         System.out.println("  -matrícula: " + this.getMatricula());
         System.out.println("  -modelo: " + this.getModelo());
         System.out.println("  -potencia: " + this.getPotencia());

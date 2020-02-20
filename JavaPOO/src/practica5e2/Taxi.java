@@ -1,6 +1,9 @@
 package practica5e2;
 
 public class Taxi extends Vehiculo {
+    
+    private static int contadorLicencia = 100;
+    
     private int numLicencia;
     private boolean ocupado;   //entiendo true ocupado, false libre
     //VER: enums para poder llamarla Estado?????
@@ -29,8 +32,8 @@ public class Taxi extends Vehiculo {
     }
 
     public void setNumLicencia() {
-        MenuPrincipal.contadorLicencia += 1;
-        this.numLicencia = MenuPrincipal.contadorLicencia;
+        contadorLicencia += 1;
+        this.numLicencia = contadorLicencia;
     }
 
     public boolean isOcupado() {

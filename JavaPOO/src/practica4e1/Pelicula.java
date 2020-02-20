@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Pelicula {
 
+    //Esta constante me sirve para ir sumando los id. La creo aquí y no en la clase.
+    private static int contadorId = 0;
     //Atributos:
     private int id;
     private String titulo;
@@ -14,8 +16,6 @@ public class Pelicula {
     private boolean disponibilidad;
     private int copiasTotal;
     private int copiasReserva;
-    //Esta constante me sirve para ir sumando los id:
-    private static int contadorId = 0;
 
     //Constructores:
     public Pelicula() {

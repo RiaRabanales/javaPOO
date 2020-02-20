@@ -43,7 +43,7 @@ public class Autobus extends Vehiculo {
         do {
             System.out.println("  -número de paradas:");
             this.setNumParadas(Integer.parseInt(MenuPrincipal.lector.nextLine()));
-        } while (this.getNumParadas() >= 3 && this.getNumParadas() <= 20);
+        } while (this.getNumParadas() <= 3 || this.getNumParadas() >= 20);
     }
     
     @Override

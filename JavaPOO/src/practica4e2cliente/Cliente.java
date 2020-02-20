@@ -110,5 +110,12 @@ public class Cliente {
         //TODO: cambiar esto por un while    
         return idEncontrado;
     }
-
+    
+    //Aquí muestro las pelis reservadas por un cliente:
+    public void mostrarReservas() {
+        System.out.println("Películas reservadas por " + this.getNombreCliente() + ":");
+        for (int i = 0; i < this.getReservasCliente().size(); i++) {
+            this.getReservasCliente().get(i).imprimirPelicula();
+        }
+    }
 }

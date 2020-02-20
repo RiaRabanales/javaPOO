@@ -6,13 +6,14 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
+    //Primero me declaro las variables de clase:
     public static Scanner lector = new Scanner(System.in);
+    private static ArrayList<Empleado> listaEmpleado = new ArrayList<>();
 
+    //Programa principal:
     public static void main(String[] args) {
-        ArrayList<Empleado> listaEmpleado = new ArrayList<>();
-
         boolean salir = false;
-        while (salir == false) {
+        while (!salir) {
             System.out.println(" ");
             System.out.println("Menú principal:");
             System.out.println("  1- Alta");
@@ -23,10 +24,10 @@ public class MenuPrincipal {
 
             switch (opcionPrincipal) {
                 case 1:
-                    procesoAlta(listaEmpleado);
+                    procesoAlta();
                     break;
                 case 2:
-                    procesoMostrar(listaEmpleado);
+                    procesoMostrar();
                     break;
                 case 0:
                     salir = true;
@@ -37,7 +38,7 @@ public class MenuPrincipal {
         }
     }
 
-    public static void procesoAlta(ArrayList<Empleado> listaEmpleado) {
+    public static void procesoAlta() {
         String opcionEmpleado = seleccionarEmpleado();
         switch (opcionEmpleado) {
             case "G":
@@ -60,8 +61,8 @@ public class MenuPrincipal {
         }
     }
 
-    public static void procesoMostrar(ArrayList<Empleado> listaEmpleado) {
-        int indiceEmpleado = buscarNifEmpleado(listaEmpleado);
+    public static void procesoMostrar() {
+        int indiceEmpleado = buscarNifEmpleado();
         if (indiceEmpleado == -1) {
             System.out.println("Empleado inexistente.");
         } else {
@@ -78,7 +79,7 @@ public class MenuPrincipal {
         return lector.nextLine().trim().toUpperCase();
     }
 
-    public static int buscarNifEmpleado(ArrayList<Empleado> listaEmpleado) {
+    public static int buscarNifEmpleado() {
         System.out.println("NIF a buscar:");
         String posibleNif = lector.nextLine().trim();
         for (int i = 0; i < listaEmpleado.size(); i++) {

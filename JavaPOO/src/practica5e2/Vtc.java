@@ -51,11 +51,11 @@ public class Vtc extends Vehiculo {
         super.altaVehiculo();
         do {System.out.println("  -horas máximas trabajadas:");
             this.setMaxHoras(Integer.parseInt(MenuPrincipal.lector.nextLine()));
-        } while (this.getMaxHoras() <= 24);
+        } while (this.getMaxHoras() > 24);
         do {
             System.out.println("  -radio de acción en km:");
             this.setKmRadio(Integer.parseInt(MenuPrincipal.lector.nextLine()));
-        } while (this.getKmRadio() <= 50);
+        } while (this.getKmRadio() > 50);
         System.out.println("  -ciudad:");
         this.setCiudad(MenuPrincipal.lector.nextLine());
     }

@@ -3,8 +3,7 @@ package practica4e2cliente;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//TODO funciones: mostrar todas las pelis reservadas con su numero de copia, mostrar todas las reservas de un cliente, eliminar a un cliente, ACABAR cancelar reserva
-//FALLO EN CASO 2: me coge dni de cliente q no existe (no lo puedo replicar wtf? debug?)
+//TODO funciones: mostrar todas las pelis reservadas con su numero de copia, eliminar a un cliente
 
 public class MenuPrincipal {
 
@@ -12,16 +11,14 @@ public class MenuPrincipal {
     private static final int MAXPELICULAS = 3000;
     //Y pruebo a crearme el lector estático para poder llamarlo por todos lados sin pasar parámetro.
     public static Scanner lector = new Scanner(System.in);
+    //declaro las dos listas que necesitaré:
+    private static final ArrayList<Pelicula> filmoteca = new ArrayList<>();
+    private static final ArrayList<Cliente> clientela = new ArrayList<>();
 
     //En el método main tengo el menú principal:
     public static void main(String[] args) {
-        //declaro las dos listas que necesitaré:
-        ArrayList<Pelicula> filmoteca = new ArrayList<>();
-        ArrayList<Cliente> clientela = new ArrayList<>();
-
         boolean salir = false;
-
-        while (salir == false) {
+        while (!salir) {
             System.out.println("=========================");
             System.out.println("       = MENU =");
             System.out.println("=========================");
@@ -31,6 +28,7 @@ public class MenuPrincipal {
             System.out.println("  4- buscar película");
             System.out.println("  5- ver copias disponibles");
             System.out.println("  6- añadir nuevo cliente");
+            System.out.println("  7- mostrar reservas de un cliente");
             System.out.println("  0- salir");
             String opcion = lector.nextLine().trim();
             System.out.println("=========================");
@@ -41,7 +39,7 @@ public class MenuPrincipal {
                     break;
                 case "2":       //reservar una película
                     int indiceCliente = comprobarCliente(clientela);
-                    if (indiceCliente != 1) {
+                    if (indiceCliente != -1) {
                         reservarPeliculas(indiceCliente, filmoteca, clientela);
                     } else {
                         System.out.println("Cliente inexistente.");
@@ -49,7 +47,7 @@ public class MenuPrincipal {
                     break;
                 case "3":        //cancelar reserva
                     indiceCliente = comprobarCliente(clientela);
-                    if (indiceCliente != 1) {
+                    if (indiceCliente != -1) {
                         cancelarReservaPelicula(indiceCliente, filmoteca, clientela);
                     } else {
                         System.out.println("Cliente inexistente.");
@@ -63,6 +61,14 @@ public class MenuPrincipal {
                     break;
                 case "6":        //crear un cliente nuevo
                     anadirCliente(clientela);
+                    break;
+                case "7":         //ver reservas de un cliente
+                    indiceCliente = comprobarCliente(clientela);
+                    if (indiceCliente != -1) {
+                        clientela.get(indiceCliente).mostrarReservas();
+                    } else {
+                        System.out.println("Cliente inexistente.");
+                    }
                     break;
                 case "0":
                     salir = true;
@@ -113,7 +119,7 @@ public class MenuPrincipal {
 
     public static int comprobarCliente(ArrayList<Cliente> clientela) {
         System.out.println("DNI del cliente:");
-        String posibleCliente = lector.nextLine();
+        String posibleCliente = lector.nextLine().trim();
         for (int i = 0; i < clientela.size(); i++) {
             if (clientela.get(i).getDniCliente().equals(posibleCliente)) {
                 return i;
@@ -149,11 +155,12 @@ public class MenuPrincipal {
             for (int i = 0; i < clientela.get(indiceCliente).getReservasCliente().size(); i++) {
                 clientela.get(indiceCliente).getReservasCliente().get(i).imprimirPelicula();
             }
-            System.out.println("Introducir ID de la película a cancelar:");
+            System.out.println("Película a cancelar:");
             int posibleId = buscarPeliculaId(filmoteca);
             if (posibleId != -1) {
                 filmoteca.get(posibleId).cancelarPelicula();
-                //TODO: QUITARLO DE LA LISTA DE RESERVAS DEL CLIENTE
+                //Y aquí lo quito de la lista de clientes:
+                clientela.get(indiceCliente).getReservasCliente().remove(filmoteca.get(posibleId));                  
             }
         }
     }

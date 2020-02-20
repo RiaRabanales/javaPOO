@@ -13,6 +13,7 @@ public class MenuPrincipal {
         ArrayList<Libro> biblioteca = new ArrayList<>();
         ArrayList<Autor> listaAutor = new ArrayList<>();
         Scanner lector = new Scanner(System.in);
+        
         boolean salir = false;
         while (salir == false) {
             System.out.println("Elige:");
@@ -33,11 +34,11 @@ public class MenuPrincipal {
                     System.out.println("  2- Existente");
                     String opcionAutor = lector.nextLine().trim();
                     Autor autorLibro = new Autor();
-                    if (opcionAutor.equals("1")) {
+                    if (opcionAutor.equals("2")) {
                         System.out.println("Apellido del autor:");
                         String consultarApellido = lector.nextLine().trim();
                         consultarAutor(listaAutor, consultarApellido);
-                    } else if (opcionAutor.equals("2")) {
+                    } else if (opcionAutor.equals("1")) {
                         autorLibro = introducirAutor(listaAutor);
                     } else {
                         System.out.println("Opción imposible.");

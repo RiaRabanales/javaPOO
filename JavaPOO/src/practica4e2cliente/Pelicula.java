@@ -1,6 +1,9 @@
 package practica4e2cliente;
 
 public class Pelicula {
+    
+    //Estáticas:
+    private static int contadorId = 0;
 
     //Atributos:
     private int id;
@@ -12,8 +15,6 @@ public class Pelicula {
     private boolean disponibilidad;
     private int copiasTotal;
     private int copiasReserva;
-    //Esta constante me sirve para ir sumando los id:
-    private static int contadorId = 0;
 
     //Constructores:
     public Pelicula() {

@@ -138,6 +138,7 @@ public class MenuPrincipal {
 
     public static Cuenta crearCuenta(Scanner lector, ArrayList<Cuenta> listaCuentas) {
         String nuevoNumero = Integer.toString((listaCuentas.size() + 10011));
+        //esto implica cuentas unicas si no puedo eliminar ninguna antes
         //TODO: pasar esto a un método en cuenta
         System.out.println("Introduzca tu nombre:");
         String nuevoNombre = lector.nextLine();
