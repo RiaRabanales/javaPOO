@@ -133,7 +133,7 @@ public class MenuPrincipal {
     public static void reservarPeliculas(int indiceCliente, ArrayList<Pelicula> filmoteca, ArrayList<Cliente> clientela) {
         System.out.println("Películas en nuestro videoclub:");
         listarPeliculas(filmoteca);
-        int encontradoId = buscarPeliculaId(filmoteca);
+        int encontradoId = buscarPeliculaPorId(filmoteca);
         //entiendo que solo se puede reservar una copia cada vez
         //quiero garantizar que no me peta por fuera de rango:
         if (encontradoId != -1) {
@@ -156,7 +156,7 @@ public class MenuPrincipal {
                 clientela.get(indiceCliente).getReservasCliente().get(i).imprimirPelicula();
             }
             System.out.println("Película a cancelar:");
-            int posibleId = buscarPeliculaId(filmoteca);
+            int posibleId = buscarPeliculaPorId(filmoteca);
             if (posibleId != -1) {
                 filmoteca.get(posibleId).cancelarPelicula();
                 //Y aquí lo quito de la lista de clientes:
@@ -188,22 +188,22 @@ public class MenuPrincipal {
         System.out.println("=========================");
         switch (opcionBusqueda) {
             case "1":
-                buscarPeliculaId(filmoteca);
+                buscarPeliculaPorId(filmoteca);
                 break;
             case "2":
-                buscarPeliculaTitulo(filmoteca);
+                buscarPeliculaPorTitulo(filmoteca);
                 break;
             case "3":
-                buscarPeliculaDirector(filmoteca);
+                buscarPeliculaPorDirector(filmoteca);
                 break;
             case "4":
-                buscarPeliculaGenero(filmoteca);
+                buscarPeliculaPorGenero(filmoteca);
                 break;
             case "5":
-                buscarPeliculaDuracion(filmoteca);
+                buscarPeliculaPorDuracion(filmoteca);
                 break;
             case "6":
-                buscarPeliculaDisponibilidad(filmoteca);
+                buscarPeliculaPorDisponibilidad(filmoteca);
                 break;
             default:
                 System.out.println("Esta búsqueda no es posible.");
@@ -211,7 +211,7 @@ public class MenuPrincipal {
     }
 
     //Entiendo que la búsqueda por ID tiene que ser exacta:
-    public static int buscarPeliculaId(ArrayList<Pelicula> filmoteca) {
+    public static int buscarPeliculaPorId(ArrayList<Pelicula> filmoteca) {
         System.out.println("Introduce el ID de la película que quieras:");
         int posibleId = Integer.parseInt(lector.nextLine());
         for (int i = 0; i < filmoteca.size(); i++) {
@@ -224,7 +224,7 @@ public class MenuPrincipal {
         return -1;
     }
 
-    public static void buscarPeliculaTitulo(ArrayList<Pelicula> filmoteca) {
+    public static void buscarPeliculaPorTitulo(ArrayList<Pelicula> filmoteca) {
         System.out.println("Introduce el título que buscas:");
         String posibleTexto = lector.nextLine();
         boolean peliculaEncontrada = false;
@@ -239,7 +239,7 @@ public class MenuPrincipal {
         }
     }
 
-    public static void buscarPeliculaDirector(ArrayList<Pelicula> filmoteca) {
+    public static void buscarPeliculaPorDirector(ArrayList<Pelicula> filmoteca) {
         System.out.println("Introduce el director que buscas:");
         String posibleTexto = lector.nextLine();
         boolean peliculaEncontrada = false;
@@ -254,7 +254,7 @@ public class MenuPrincipal {
         }
     }
 
-    public static void buscarPeliculaGenero(ArrayList<Pelicula> filmoteca) {
+    public static void buscarPeliculaPorGenero(ArrayList<Pelicula> filmoteca) {
         System.out.println("Introduce el género que buscas:");
         String posibleTexto = lector.nextLine();
         boolean peliculaEncontrada = false;
@@ -270,7 +270,7 @@ public class MenuPrincipal {
     }
 
     //Entiendo que la búsqueda por minutos tiene que ser exacta:
-    public static void buscarPeliculaDuracion(ArrayList<Pelicula> filmoteca) {
+    public static void buscarPeliculaPorDuracion(ArrayList<Pelicula> filmoteca) {
         System.out.println("Introduce la duración en minutos:");
         int posibleId = Integer.parseInt(lector.nextLine());
         boolean peliculaEncontrada = false;
@@ -286,7 +286,7 @@ public class MenuPrincipal {
     }
 
     //Entiendo que sólo quiero las películas disponibles:
-    public static void buscarPeliculaDisponibilidad(ArrayList<Pelicula> filmoteca) {
+    public static void buscarPeliculaPorDisponibilidad(ArrayList<Pelicula> filmoteca) {
         boolean peliculaEncontrada = false;
         for (int i = 0; i < filmoteca.size(); i++) {
             if (filmoteca.get(i).isDisponibilidad()) {

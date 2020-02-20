@@ -121,17 +121,17 @@ public class Pelicula {
     }
 
     //Métodos:
-    public void introducirPelicula(Scanner lector) {
+    public void introducirPelicula() {
         System.out.println("Introducir título:");
-        this.setTitulo(lector.nextLine());
+        this.setTitulo(MenuPrincipal.lector.nextLine());
         System.out.println("Introducir director:");
-        this.setDirector(lector.nextLine());
+        this.setDirector(MenuPrincipal.lector.nextLine());
         System.out.println("Introducir género:");
-        this.setGenero(lector.nextLine());
+        this.setGenero(MenuPrincipal.lector.nextLine());
         System.out.println("Introducir año:");
-        this.setAnyo(Integer.parseInt(lector.nextLine()));
+        this.setAnyo(Integer.parseInt(MenuPrincipal.lector.nextLine()));
         System.out.println("Introducir duración:");
-        this.setDuracion(Integer.parseInt(lector.nextLine()));
+        this.setDuracion(Integer.parseInt(MenuPrincipal.lector.nextLine()));
     }
 
     public void imprimirPelicula() {

@@ -7,14 +7,13 @@ public class MenuPrincipal {
 
     //Primero declaro la constante de película:
     private static final int MAXPELICULAS = 3000;
+    //Y las demás constantes que necesito:
+    public static Scanner lector = new Scanner(System.in);
+    private static final ArrayList<Pelicula> filmoteca = new ArrayList<>();
 
     //En el método main tengo el menú principal:
     public static void main(String[] args) {
-        Scanner lector = new Scanner(System.in);
-        ArrayList<Pelicula> filmoteca = new ArrayList<>();
-
         boolean salir = false;
-
         while (!salir) {
             System.out.println("=========================");
             System.out.println("       = MENU =");
@@ -28,13 +27,13 @@ public class MenuPrincipal {
 
             switch (opcion) {
                 case "1":
-                    anadirPelicula(lector, filmoteca);
+                    anadirPelicula();
                     break;
                 case "2":
-                    reservarPeliculas(filmoteca, lector);
+                    reservarPeliculas();
                     break;
                 case "3":
-                    buscarPelicula(filmoteca, lector);
+                    buscarPelicula();
                     break;
                 case "4":
                     salir = true;
@@ -47,20 +46,20 @@ public class MenuPrincipal {
     }
 
     //A partir de aquí están los métodos específicos
-    public static void anadirPelicula(Scanner lector, ArrayList<Pelicula> filmoteca) {
+    public static void anadirPelicula() {
         System.out.println("¿Cuántas copias de la película quieres añadir?");
         int copiasNuevaPelicula = Integer.parseInt(lector.nextLine());
-        if (contarPeliculas(filmoteca) + copiasNuevaPelicula >= MAXPELICULAS) {
+        if (contarPeliculas() + copiasNuevaPelicula >= MAXPELICULAS) {
             System.out.println("El videoclub no puede almacenar estas copias.");
         } else {
             Pelicula nuevaPelicula = new Pelicula(copiasNuevaPelicula, 0);
-            nuevaPelicula.introducirPelicula(lector);
+            nuevaPelicula.introducirPelicula();
             filmoteca.add(nuevaPelicula);
         }
     }
 
     //Este método me calcula el total de películas cada vez; no quiero crear variable aparte.
-    public static int contarPeliculas(ArrayList<Pelicula> filmoteca) {
+    public static int contarPeliculas() {
         int totalPeliculas = 0;
         for (int i = 0; i < filmoteca.size(); i++) {
             totalPeliculas += filmoteca.get(i).getCopiasTotal();
@@ -69,10 +68,10 @@ public class MenuPrincipal {
     }
 
     //Este a su vez me llamará al reservarPelicula de la otra clase
-    public static void reservarPeliculas(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static void reservarPeliculas() {
         System.out.println("Películas en nuestro videoclub:");
-        listarPeliculas(filmoteca);
-        int encontradoId = buscarPeliculaId(filmoteca, lector);
+        listarPeliculas();
+        int encontradoId = buscarPeliculaPorId();
         //entiendo que solo se puede reservar una copia cada vez
         //quiero garantizar que no me peta por fuera de rango:
         if (encontradoId != -1) {
@@ -86,14 +85,14 @@ public class MenuPrincipal {
     }
 
     //Este método muestra información de todos los títulos
-    public static void listarPeliculas(ArrayList<Pelicula> filmoteca) {
+    public static void listarPeliculas() {
         for (int i = 0; i < filmoteca.size(); i++) {
             filmoteca.get(i).imprimirPelicula();
         }
     }
 
     //A partir de aquí incluyo todos mis métodos de búsqueda:
-    public static void buscarPelicula(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static void buscarPelicula() {
         System.out.println("¿Qué tipo de búsqueda quieres realizar?");
         System.out.println("  -1. Por ID");
         System.out.println("  -2. Por título");
@@ -105,22 +104,22 @@ public class MenuPrincipal {
         System.out.println("=========================");
         switch (opcionBusqueda) {
             case "1":
-                buscarPeliculaId(filmoteca, lector);
+                buscarPeliculaPorId();
                 break;
             case "2":
-                buscarPeliculaTitulo(filmoteca, lector);
+                buscarPeliculaPorTitulo();
                 break;
             case "3":
-                buscarPeliculaDirector(filmoteca, lector);
+                buscarPeliculaPorDirector();
                 break;
             case "4":
-                buscarPeliculaGenero(filmoteca, lector);
+                buscarPeliculaPorGenero();
                 break;
             case "5":
-                buscarPeliculaDuracion(filmoteca, lector);
+                buscarPeliculaPorDuracion();
                 break;
             case "6":
-                buscarPeliculaDisponibilidad(filmoteca, lector);
+                buscarPeliculaPorDisponibilidad();
                 break;
             default:
                 System.out.println("Esta búsqueda no es posible.");
@@ -128,7 +127,7 @@ public class MenuPrincipal {
     }
 
     //Entiendo que la búsqueda por ID tiene que ser exacta:
-    public static int buscarPeliculaId(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static int buscarPeliculaPorId() {
         System.out.println("Introduce el ID de la película que quieras:");
         int posibleId = Integer.parseInt(lector.nextLine());
         for (int i = 0; i < filmoteca.size(); i++) {
@@ -141,7 +140,7 @@ public class MenuPrincipal {
         return -1;
     }
 
-    public static void buscarPeliculaTitulo(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static void buscarPeliculaPorTitulo() {
         System.out.println("Introduce el título que buscas:");
         String posibleTexto = lector.nextLine();
         boolean peliculaEncontrada = false;
@@ -156,7 +155,7 @@ public class MenuPrincipal {
         }
     }
 
-    public static void buscarPeliculaDirector(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static void buscarPeliculaPorDirector() {
         System.out.println("Introduce el director que buscas:");
         String posibleTexto = lector.nextLine();
         boolean peliculaEncontrada = false;
@@ -171,7 +170,7 @@ public class MenuPrincipal {
         }
     }
 
-    public static void buscarPeliculaGenero(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static void buscarPeliculaPorGenero() {
         System.out.println("Introduce el género que buscas:");
         String posibleTexto = lector.nextLine();
         boolean peliculaEncontrada = false;
@@ -187,7 +186,7 @@ public class MenuPrincipal {
     }
 
     //Entiendo que la búsqueda por minutos tiene que ser exacta:
-    public static void buscarPeliculaDuracion(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static void buscarPeliculaPorDuracion() {
         System.out.println("Introduce la duración en minutos:");
         int posibleId = Integer.parseInt(lector.nextLine());
         boolean peliculaEncontrada = false;
@@ -203,7 +202,7 @@ public class MenuPrincipal {
     }
 
     //Entiendo que sólo quiero las películas disponibles:
-    public static void buscarPeliculaDisponibilidad(ArrayList<Pelicula> filmoteca, Scanner lector) {
+    public static void buscarPeliculaPorDisponibilidad() {
         boolean peliculaEncontrada = false;
         for (int i = 0; i < filmoteca.size(); i++) {
             if (filmoteca.get(i).isDisponibilidad()) {

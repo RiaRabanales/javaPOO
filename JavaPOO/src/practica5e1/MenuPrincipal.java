@@ -62,12 +62,12 @@ public class MenuPrincipal {
     }
 
     public static void procesoMostrar() {
-        int indiceEmpleado = buscarNifEmpleado();
-        if (indiceEmpleado == -1) {
+        Empleado miEmpleado = buscarEmpleadoPorNif();
+        if (miEmpleado == null) {
             System.out.println("Empleado inexistente.");
         } else {
             //Nota: si tuviera que ver si es de un tipo u otro, es interesante 'instanceof'
-            listaEmpleado.get(indiceEmpleado).mostrarAtributos();
+            miEmpleado.mostrarAtributos();
         }
     }
 
@@ -79,14 +79,14 @@ public class MenuPrincipal {
         return lector.nextLine().trim().toUpperCase();
     }
 
-    public static int buscarNifEmpleado() {
+    public static Empleado buscarEmpleadoPorNif() {
         System.out.println("NIF a buscar:");
         String posibleNif = lector.nextLine().trim();
         for (int i = 0; i < listaEmpleado.size(); i++) {
             if (listaEmpleado.get(i).getNif().equals(posibleNif)) {
-                return i;
+                return listaEmpleado.get(i);
             }
         }
-        return -1;
+        return null;
     }
 }
