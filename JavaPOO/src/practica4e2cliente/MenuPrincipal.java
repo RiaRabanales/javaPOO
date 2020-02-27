@@ -84,7 +84,7 @@ public class MenuPrincipal {
     public static void anadirPelicula(ArrayList<Pelicula> filmoteca) {
         System.out.println("¿Cuántas copias de la película quieres añadir?");
         int copiasNuevaPelicula = Integer.parseInt(lector.nextLine());
-        if (contarPeliculas(filmoteca) + copiasNuevaPelicula >= MAXPELICULAS) {
+        if (contarPeliculas(filmoteca) + copiasNuevaPelicula > MAXPELICULAS) {
             System.out.println("El videoclub no puede almacenar estas copias.");
         } else {
             Pelicula nuevaPelicula = new Pelicula(copiasNuevaPelicula, 0);
