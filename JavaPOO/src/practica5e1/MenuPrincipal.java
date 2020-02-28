@@ -18,6 +18,9 @@ public class MenuPrincipal {
             System.out.println("Menú principal:");
             System.out.println("  1- Alta");
             System.out.println("  2- Mostrar datos");
+            System.out.println("  3- Mostrar todos los empleados");
+            System.out.println("  4- Mostrar todos los comerciales");
+            System.out.println("  5- Mostrar todos los repartidores");
             System.out.println("  0- Salir");
             int opcionPrincipal = Integer.parseInt(lector.nextLine().trim());
             System.out.println(" ");
@@ -28,6 +31,15 @@ public class MenuPrincipal {
                     break;
                 case 2:
                     procesoMostrar();
+                    break;
+                case 3:
+                    mostrarEmpleados();
+                    break;
+                case 4:
+                    mostrarComerciales();
+                    break;
+                case 5:
+                    mostrarRepartidores();
                     break;
                 case 0:
                     salir = true;
@@ -88,5 +100,32 @@ public class MenuPrincipal {
             }
         }
         return null;
+    }
+    
+    public static void mostrarRepartidores() {
+        System.out.println("Lista de repartidores:");
+        for (int i = 0; i < listaEmpleado.size(); i++) {
+            if (listaEmpleado.get(i) instanceof Repartidor) {
+                listaEmpleado.get(i).mostrarAtributos();           
+            }
+        }
+    }
+    
+    public static void mostrarComerciales() {
+        System.out.println("Lista de comerciales:");
+        for (int i = 0; i < listaEmpleado.size(); i++) {
+            if (listaEmpleado.get(i) instanceof Comercial) {
+                listaEmpleado.get(i).mostrarAtributos();           
+            }
+        }
+    }
+    
+    public static void mostrarEmpleados() {
+        System.out.println("Lista de empleados:");
+        for (int i = 0; i < listaEmpleado.size(); i++) {
+            if (!(listaEmpleado.get(i) instanceof Repartidor) && !(listaEmpleado.get(i) instanceof Comercial)) {
+                listaEmpleado.get(i).mostrarAtributos();           
+            }
+        }
     }
 }
