@@ -34,20 +34,23 @@ public class Primitiva extends Apuesta {
     
     @Override
     public void rellenarApuesta() {
-        super.rellenarApuesta();
-        //TODO porque lo que había aquí va en crearApuestaPrimitiva
+        if ((this.getNombre() == null) && (this.getApellidos() == null)) {
+            super.rellenarApuesta();
+        }
+        this.setListaNumeros(crearApuestaPrimitiva());
     }
     
-    public void crearApuestaPrimitiva() {
-        
-        for (int i = 0; i < listaNumeros.length; i++) {
+    public int[] crearApuestaPrimitiva() {
+        int[] miListaNumeros = new int[6];
+        for (int i = 0; i < miListaNumeros.length; i++) {
             int miApuesta;
             do {
             System.out.println("Apuesta un número entre 1 y 49 (número " + (i + 1) + ":");
             miApuesta = Integer.parseInt(SimulacionLoteria.lector.nextLine().trim());
             } while ((1 > miApuesta) || (49 < miApuesta));
-            listaNumeros[i] = miApuesta;
+            miListaNumeros[i] = miApuesta;
         }
+        return miListaNumeros;
     }
     
     //Getters y setters:

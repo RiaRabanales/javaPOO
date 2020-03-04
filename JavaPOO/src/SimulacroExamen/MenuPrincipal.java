@@ -27,7 +27,11 @@ public class MenuPrincipal {
 
             switch (opcion) {
                 case 1:
-                    sacarDinero(cajero);
+                    try {
+                        sacarDinero(cajero);
+                    } catch (ExcepcionCajero e) {
+                        System.out.println(e.getMensajeExcepcion());
+                    }
                     break;
                 case 2:
                     salir = true;
@@ -52,7 +56,7 @@ public class MenuPrincipal {
     }
 
     //Método sacarDinero, que desarrollará el proceso general
-    public static void sacarDinero(CajeroAutomatico cajero) {
+    public static void sacarDinero(CajeroAutomatico cajero) throws ExcepcionCajero {
         System.out.println("Introduce NIF:");
         String posibleCliente = lector.nextLine();
         System.out.println("Introduce PIN:");
@@ -60,21 +64,19 @@ public class MenuPrincipal {
         //Creo objeto clase padre, y almaceno los tipos de los hijos, sean los que sean
         Tarjeta miTarjeta = cajero.buscarTarjeta(posibleCliente, posiblePin);
         if (miTarjeta != null) {
-            try {
-                System.out.println("Introduce cantidad para sacar:");
-                int cantidad = Integer.parseInt(lector.nextLine().trim());
-                if (miTarjeta.comprobarSaldoDisponible(cantidad) == true) {
-                    if (cajero.contarBilletes() < cantidad) {
-                        throw new ExcepcionCajero(cantidad);
-                    } else {
-                        cajero.sacarBilletes(cantidad);
-                        //Lo de arriba puede lanzarme excepción; si lo hace no me entra abajo.
-                        miTarjeta.disminuirSaldoDisponible(cantidad);
-                    }
+
+            System.out.println("Introduce cantidad para sacar:");
+            int cantidad = Integer.parseInt(lector.nextLine().trim());
+            if (miTarjeta.comprobarSaldoDisponible(cantidad) == true) {
+                if (cajero.contarBilletes() < cantidad) {
+                    throw new ExcepcionCajero(cantidad);
+                } else {
+                    cajero.sacarBilletes(cantidad);
+                    //Lo de arriba puede lanzarme excepción; si lo hace no me entra abajo.
+                    miTarjeta.disminuirSaldoDisponible(cantidad);
                 }
-            } catch (ExcepcionCajero e) {
-                System.out.println(e.getMensajeExcepcion());
             }
+
         }
 
     }

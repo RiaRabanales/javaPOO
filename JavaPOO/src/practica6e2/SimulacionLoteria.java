@@ -1,10 +1,12 @@
 package practica6e2;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SimulacionLoteria {
 
     public static Scanner lector = new Scanner(System.in);
+    private static ArrayList<Apuesta> listaApuestas = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -23,6 +25,7 @@ public class SimulacionLoteria {
             switch (opcion) {
                 case "1":
                     iniciarApuestaPrimitiva();
+                    //TODO comprobar porq no va
                     break;
                 case "2":
                     iniciarApuestaQuiniela();
@@ -41,14 +44,54 @@ public class SimulacionLoteria {
     }
 
     public static void iniciarApuestaPrimitiva() {
+        Primitiva miPrimitiva = new Primitiva();
+        miPrimitiva.rellenarApuesta();
+        listaApuestas.add(miPrimitiva);
+        boolean repetir = true;
+        do {
+            System.out.println("¿Otra quiniela más? S/N");
+            String opcionrepetir = lector.nextLine().trim().toUpperCase();
+            if (opcionrepetir.equals("S")) {
+                repetirApuestaPrimitiva(miPrimitiva);
+            } else {
+                System.out.println("Vuelta al menú principal.");        //paso de hacer un default
+                repetir = false;
+            }
+        } while (repetir == true);
+    }
+
+    public static void repetirApuestaPrimitiva(Primitiva miPrimitiva) {
+        Primitiva nuevaPrimitiva = new Primitiva(miPrimitiva);
+        nuevaPrimitiva.setListaNumeros(null);
+        nuevaPrimitiva.rellenarApuesta();
+        listaApuestas.add(nuevaPrimitiva);
+    }
+
+public static void iniciarApuestaQuiniela() {
         Quiniela miQuiniela = new Quiniela();
         miQuiniela.rellenarApuesta();
-        
+        listaApuestas.add(miQuiniela);
+        boolean repetir = true;
+        do {
+            System.out.println("¿Otra quiniela más? S/N");
+            String opcionrepetir = lector.nextLine().trim().toUpperCase();
+            if (opcionrepetir.equals("S")) {
+                repetirApuestaQuiniela(miQuiniela);
+            } else {
+                System.out.println("Vuelta al menú principal.");        //paso de hacer un default
+                repetir = false;
+            }
+        }
+        while (repetir == true);        
+    }
+    
+    public static void repetirApuestaQuiniela(Quiniela miQuiniela) {
+        Quiniela nuevaQuiniela = new Quiniela(miQuiniela);
+        nuevaQuiniela.setListaQuiniela(null);
+        nuevaQuiniela.rellenarApuesta();
+        listaApuestas.add(nuevaQuiniela);
     }
 
-    public static void iniciarApuestaQuiniela() {
-
-    }
 
     public static void realizarSimulación() {
         //TODO

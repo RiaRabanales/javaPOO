@@ -50,7 +50,7 @@ public class Quiniela extends Apuesta {
             do {
                 System.out.println("Introduce 1-x-2 para el partido " + (i + 1) + ":");
                 resultado = SimulacionLoteria.lector.nextLine().trim().toLowerCase();
-            } while (!resultado.equals("x") || !resultado.equals("1") || !resultado.equals("2"));
+            } while (!resultado.equals("x") && !resultado.equals("1") & !resultado.equals("2"));
             miListaQuiniela[i] = resultado;
         }
         return miListaQuiniela;
