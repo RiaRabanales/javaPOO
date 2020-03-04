@@ -1,5 +1,7 @@
 package practica6e2;
 
+import java.util.Arrays;
+
 public class Primitiva extends Apuesta {
     //Atributos:
     private int[] listaNumeros = new int[6];
@@ -25,7 +27,7 @@ public class Primitiva extends Apuesta {
     @Override
     public void mostrarApuesta() {
         super.mostrarApuesta();
-        System.out.println("      Números de primitiva: " + this.getListaNumeros());
+        System.out.println("      Números de primitiva: " + Arrays.toString(this.getListaNumeros()));
         //TODO plantear para imprimir esto bonito
         System.out.println("      Aciertos: " + this.getAciertos());
     }
@@ -33,7 +35,19 @@ public class Primitiva extends Apuesta {
     @Override
     public void rellenarApuesta() {
         super.rellenarApuesta();
-        //TODO completar
+        //TODO porque lo que había aquí va en crearApuestaPrimitiva
+    }
+    
+    public void crearApuestaPrimitiva() {
+        
+        for (int i = 0; i < listaNumeros.length; i++) {
+            int miApuesta;
+            do {
+            System.out.println("Apuesta un número entre 1 y 49 (número " + (i + 1) + ":");
+            miApuesta = Integer.parseInt(SimulacionLoteria.lector.nextLine().trim());
+            } while ((1 > miApuesta) || (49 < miApuesta));
+            listaNumeros[i] = miApuesta;
+        }
     }
     
     //Getters y setters:
