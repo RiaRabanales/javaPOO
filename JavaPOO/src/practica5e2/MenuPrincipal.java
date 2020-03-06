@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuPrincipal {
+
     //Variables que necesito en todas las clases
     public static Scanner lector = new Scanner(System.in);
     private static ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
@@ -31,13 +32,13 @@ public class MenuPrincipal {
                     procesoBusqueda(listaVehiculos);
                     break;
                 case 3:
-                    solicitarTaxi(listaVehiculos);
+                    Taxi.solicitarTaxi(listaVehiculos);
                     break;
                 case 4:
-                    cancelarTaxi(listaVehiculos);
+                    Taxi.cancelarTaxi(listaVehiculos);
                     break;
                 case 5:
-                    mostrarListaVehiculos(listaVehiculos);
+                    Vehiculo.mostrarListaVehiculos(listaVehiculos);
                     break;
                 case 6:
                     mostrarNumVehiculos();
@@ -50,7 +51,7 @@ public class MenuPrincipal {
             }
         }
     }
-    
+
     public static void procesoAlta(ArrayList<Vehiculo> listaVehiculos) {
         String opcionEmpleado = seleccionarTipoVehiculo();
         switch (opcionEmpleado) {
@@ -78,7 +79,7 @@ public class MenuPrincipal {
                 System.out.println("Opción incorrecta.");
         }
     }
-    
+
     public static String seleccionarTipoVehiculo() {
         System.out.println("Tipo de vehículo:");
         System.out.println("  1- Genérico");
@@ -87,15 +88,7 @@ public class MenuPrincipal {
         System.out.println("  4- VTC");
         return lector.nextLine().trim();
     }
-    
-    public static void mostrarListaVehiculos (ArrayList<Vehiculo> listaVehiculos) {
-        System.out.println("Vehículos dados de alta:");
-        System.out.println("______________________________");
-        for (int i = 0; i < listaVehiculos.size(); i++) {
-            listaVehiculos.get(i).mostrarVehiculo();
-        }
-    }
-    
+
     public static void procesoBusqueda(ArrayList<Vehiculo> listaVehiculos) {
         System.out.println("Elección de búsqueda:");
         System.out.println("  -1: por ID");
@@ -103,9 +96,9 @@ public class MenuPrincipal {
         String opcionBusqueda = lector.nextLine();
         Vehiculo vehiculoEncontrado = new Vehiculo();
         if (opcionBusqueda.equals("1")) {
-            vehiculoEncontrado = buscarVehiculoPorId(listaVehiculos);
+            vehiculoEncontrado = Vehiculo.buscarVehiculoPorId(listaVehiculos);
         } else if (opcionBusqueda.equals("2")) {
-            vehiculoEncontrado = buscarVehiculoPorMatricula(listaVehiculos);
+            vehiculoEncontrado = Vehiculo.buscarVehiculoPorMatricula(listaVehiculos);
         } else {
             System.out.println("Opción incorrecta");
         }
@@ -115,63 +108,8 @@ public class MenuPrincipal {
             vehiculoEncontrado.mostrarVehiculo();
         }
     }
-    
-    public static Vehiculo buscarVehiculoPorId(ArrayList<Vehiculo> listaVehiculos) {
-        System.out.println("Introducir ID para buscar:");
-        int idVehiculo = Integer.parseInt(lector.nextLine().trim());
-        for (int i = 0; i < listaVehiculos.size(); i++) {
-            if (listaVehiculos.get(i).getId() == idVehiculo) {
-                return listaVehiculos.get(i);
-            }
-        }
-        return null;
-    }
-    
-    public static Vehiculo buscarVehiculoPorMatricula(ArrayList<Vehiculo> listaVehiculos) {
-        System.out.println("Introducir matrícula para buscar:");
-        String matriculaVehiculo = lector.nextLine().trim().toUpperCase();
-        for (int i = 0; i < listaVehiculos.size(); i++) {
-            if (listaVehiculos.get(i).getMatricula().equals(matriculaVehiculo)) {
-                return listaVehiculos.get(i);
-            }
-        }
-        return null;
-    }
-    
-    //Recorro la lista para buscar taxis, variable para saber si lo encuentro
-    public static void solicitarTaxi(ArrayList<Vehiculo> listaVehiculos) {
-        boolean taxiEncontrado = false;
-        for (int i = 0; i < listaVehiculos.size(); i++) {
-            if (listaVehiculos.get(i) instanceof Taxi) {
-                //esto lo podía hacer con un && en vez de anidar condiciones
-                if (((Taxi)listaVehiculos.get(i)).isOcupado() == false) {
-                    ((Taxi)listaVehiculos.get(i)).setOcupado(true);
-                    taxiEncontrado = true;
-                    System.out.println("Se ha reservado el taxi con  ID " + 
-                            listaVehiculos.get(i).getId() + " y matrícula " +
-                            listaVehiculos.get(i).getMatricula());
-                }
-            }
-        }
-        if (!taxiEncontrado) {
-            System.out.println("En estos momentos no hay taxis disponibles.");
-        }
-    }
-    
-    public static void cancelarTaxi(ArrayList<Vehiculo> listaVehiculos) {
-        System.out.println("Datos del taxi.");
-        int indice = listaVehiculos.indexOf(buscarVehiculoPorId(listaVehiculos));
-        //cuidado: cuando veamos try-catch volver para arreglar casos de retorno null
-        //NullPointerException supongo?
-        if (((Taxi)(listaVehiculos.get(indice))).isOcupado()) {
-            ((Taxi)(listaVehiculos.get(indice))).setOcupado(false);
-            System.out.println("Se ha cancelado la reserva del taxi con  ID " + 
-                    ((Taxi)(listaVehiculos.get(indice))).getId() + " y matrícula " + 
-                    ((Taxi)(listaVehiculos.get(indice))).getMatricula());
-        }
-    }
-    
+
     public static void mostrarNumVehiculos() {
         System.out.println("En esta aplicacion se guardan " + Vehiculo.getNumVehiculos() + " vehículos.");
-    }   
+    }
 }

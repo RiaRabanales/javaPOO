@@ -1,5 +1,7 @@
 package practica5e2;
 
+import java.util.ArrayList;
+
 public class Taxi extends Vehiculo {
     
     private static int contadorLicencia = 100;
@@ -79,5 +81,38 @@ public class Taxi extends Vehiculo {
     
     public void marcarDesocupado() {
         this.setOcupado(false);
+    }
+    
+        //Recorro la lista para buscar taxis, variable para saber si lo encuentro
+    public static void solicitarTaxi(ArrayList<Vehiculo> listaVehiculos) {
+        boolean taxiEncontrado = false;
+        for (int i = 0; i < listaVehiculos.size(); i++) {
+            if (listaVehiculos.get(i) instanceof Taxi) {
+                //esto lo podía hacer con un && en vez de anidar condiciones
+                if (((Taxi)listaVehiculos.get(i)).isOcupado() == false) {
+                    ((Taxi)listaVehiculos.get(i)).setOcupado(true);
+                    taxiEncontrado = true;
+                    System.out.println("Se ha reservado el taxi con  ID " + 
+                            listaVehiculos.get(i).getId() + " y matrícula " +
+                            listaVehiculos.get(i).getMatricula());
+                }
+            }
+        }
+        if (!taxiEncontrado) {
+            System.out.println("En estos momentos no hay taxis disponibles.");
+        }
+    }
+    
+    public static void cancelarTaxi(ArrayList<Vehiculo> listaVehiculos) {
+        System.out.println("Datos del taxi.");
+        int indice = listaVehiculos.indexOf(Vehiculo.buscarVehiculoPorId(listaVehiculos));
+        //cuidado: cuando veamos try-catch volver para arreglar casos de retorno null
+        //NullPointerException supongo?
+        if (((Taxi)(listaVehiculos.get(indice))).isOcupado()) {
+            ((Taxi)(listaVehiculos.get(indice))).setOcupado(false);
+            System.out.println("Se ha cancelado la reserva del taxi con  ID " + 
+                    ((Taxi)(listaVehiculos.get(indice))).getId() + " y matrícula " + 
+                    ((Taxi)(listaVehiculos.get(indice))).getMatricula());
+        }
     }
 }

@@ -1,5 +1,7 @@
 package practica5e2;
 
+import java.util.ArrayList;
+
 public class Vehiculo {
 
     private static int numVehiculos = 0;
@@ -85,5 +87,35 @@ public class Vehiculo {
         System.out.println("  -matrícula: " + this.getMatricula());
         System.out.println("  -modelo: " + this.getModelo());
         System.out.println("  -potencia: " + this.getPotencia());
+    }
+
+    public static void mostrarListaVehiculos(ArrayList<Vehiculo> listaVehiculos) {
+        System.out.println("Vehículos dados de alta:");
+        System.out.println("______________________________");
+        for (int i = 0; i < listaVehiculos.size(); i++) {
+            listaVehiculos.get(i).mostrarVehiculo();
+        }
+    }
+
+    public static Vehiculo buscarVehiculoPorId(ArrayList<Vehiculo> listaVehiculos) {
+        System.out.println("Introducir ID para buscar:");
+        int idVehiculo = Integer.parseInt(MenuPrincipal.lector.nextLine().trim());
+        for (int i = 0; i < listaVehiculos.size(); i++) {
+            if (listaVehiculos.get(i).getId() == idVehiculo) {
+                return listaVehiculos.get(i);
+            }
+        }
+        return null;
+    }
+
+    public static Vehiculo buscarVehiculoPorMatricula(ArrayList<Vehiculo> listaVehiculos) {
+        System.out.println("Introducir matrícula para buscar:");
+        String matriculaVehiculo = MenuPrincipal.lector.nextLine().trim().toUpperCase();
+        for (int i = 0; i < listaVehiculos.size(); i++) {
+            if (listaVehiculos.get(i).getMatricula().equals(matriculaVehiculo)) {
+                return listaVehiculos.get(i);
+            }
+        }
+        return null;
     }
 }
