@@ -1,4 +1,4 @@
-package practica6e2;
+package practica6e02;
 
 public abstract class Apuesta {
     
@@ -6,22 +6,23 @@ public abstract class Apuesta {
     private String nombre;
     private String apellidos;
     private int numeroApuesta;
+    //creo que aquí también tendría que poner 'aciertos', porque las dos tienen, pero el enunciado me indica que no.
     private static int contadorApuesta = 0;
-    
+
     //Constructores:
     public Apuesta() {
     }
-    
-    public Apuesta(String nombre, String apellidos, int numeroApuesta) {
+
+    public Apuesta(String nombre, String apellidos) {
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.numeroApuesta = numeroApuesta;
+        this.setNumeroApuesta();
     }
-    
+
     public Apuesta(Apuesta a1) {
         this.nombre = a1.nombre;
         this.apellidos = a1.apellidos;
-        this.numeroApuesta = a1.numeroApuesta;
+        this.setNumeroApuesta();
     }
     
     //Métodos:
@@ -30,27 +31,18 @@ public abstract class Apuesta {
         System.out.println("      con número de apuesta: " + this.getNumeroApuesta());
     }
     
-    public void rellenarApuesta() {
-        System.out.println("Introduce tus datos:");
-        System.out.println("  -nombre:");
-        this.setNombre(SimulacionLoteria.lector.nextLine().trim());
-        System.out.println("  -apellidos:");
-        this.setApellidos(SimulacionLoteria.lector.nextLine().trim());
-        contadorApuesta += 1;
-        this.setNumeroApuesta(contadorApuesta);
-    }
-    
     //Getters y setters:
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellidos.toUpperCase();
+        //Realmente esto no es necesario por el error
     }
 
     public void setApellidos(String apellidos) {
@@ -61,16 +53,11 @@ public abstract class Apuesta {
         return numeroApuesta;
     }
 
-    public void setNumeroApuesta(int numeroApuesta) {
-        this.numeroApuesta = numeroApuesta;
+    public void setNumeroApuesta() {
+        contadorApuesta++;
+        this.numeroApuesta = contadorApuesta;
     }
 
-    public static int getContadorApuesta() {
-        return contadorApuesta;
-    }
 
-    public static void setContadorApuesta(int contadorApuesta) {
-        Apuesta.contadorApuesta = contadorApuesta;
-    }
     
 }
