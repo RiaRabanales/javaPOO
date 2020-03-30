@@ -1,4 +1,4 @@
-package practica6e02;
+package practica6e2;
 
 //Entiendo que también es una especialización de Apuesta
 import java.util.Arrays;
